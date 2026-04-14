@@ -1,0 +1,5 @@
+export const environment = {
+    production: false,
+    apiBaseUrl: 'https://localhost:7271',
+    tokenKey: 'iti_token'
+};

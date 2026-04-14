@@ -1,0 +1,60 @@
+<section class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-9">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Assign Degrees</h2>
+            <a routerLink="/course" class="btn btn-outline-secondary">Back</a>
+          </div>
+
+          <form (ngSubmit)="submit()" class="d-grid gap-3">
+            <div class="alert alert-light border py-2 mb-0">
+              <strong>Course:</strong> {{ courseName() || payload().courseId }}
+            </div>
+
+            <div class="d-grid gap-2">
+              @for (row of payload().studentDegrees; track $index) {
+                <div class="row g-2 align-items-end">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Student Id</label>
+                    <input
+                      class="form-control"
+                      [ngModel]="row.studentId"
+                      [name]="'studentId' + $index"
+                      (ngModelChange)="updateStudentDegree($index, 'studentId', $event)"
+                    />
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <label class="form-label">Degree</label>
+                    <input
+                      class="form-control"
+                      type="number"
+                      [ngModel]="row.degree"
+                      [name]="'degree' + $index"
+                      (ngModelChange)="updateStudentDegree($index, 'degree', $event)"
+                    />
+                  </div>
+
+                  <div class="col-12 col-md-2">
+                    <button type="button" class="btn btn-outline-danger w-100" (click)="removeStudentDegreeRow($index)">Remove</button>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-outline-primary" (click)="addStudentDegreeRow()">Add Row</button>
+              <button type="submit" class="btn btn-primary">Assign Degrees</button>
+            </div>
+
+            @if (errorMessage()) {
+              <div class="alert alert-danger py-2 mb-0">{{ errorMessage() }}</div>
+            }
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

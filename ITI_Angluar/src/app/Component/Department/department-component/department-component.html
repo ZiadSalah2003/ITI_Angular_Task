@@ -1,0 +1,58 @@
+<section class="container py-4">
+	<div class="row justify-content-center">
+		<div class="col-12 col-xl-10">
+
+			<div class="card shadow-sm border-0">
+				<div class="card-body p-4">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<h2 class="h4 mb-0">Departments</h2>
+						<a routerLink="/department/create" class="btn btn-primary">Create Department</a>
+					</div>
+
+					@if (errorMessage()) {
+						<div class="alert alert-danger py-2 mb-3">{{ errorMessage() }}</div>
+					}
+
+					<div class="table-responsive">
+						<table class="table table-striped align-middle mb-0">
+							<thead>
+								<tr>
+									<th scope="col">Id</th>
+									<th scope="col">Name</th>
+									<th scope="col">Students Count</th>
+									<th scope="col">Student Names</th>
+									<th scope="col" class="text-end">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								@for (department of departments(); track department.id) {
+									<tr>
+										<td>{{ department.id }}</td>
+										<td>{{ department.name }}</td>
+										<td>{{ department.studentsCount ?? 0 }}</td>
+										<td>
+											@if ((department.studentNames?.length ?? 0) > 0) {
+												{{ department.studentNames?.join(', ') }}
+											} @else {
+												<span class="text-secondary">-</span>
+											}
+										</td>
+										<td class="text-end">
+											<a [routerLink]="['/department', department.id, 'edit']" class="btn btn-sm btn-outline-primary me-2">Edit</a>
+											<a [routerLink]="['/department', department.id, 'details']" class="btn btn-sm btn-outline-info me-2">Details</a>
+											<a [routerLink]="['/department', department.id, 'delete']" class="btn btn-sm btn-outline-danger">Delete</a>
+										</td>
+									</tr>
+								} @empty {
+									<tr>
+										<td colspan="5" class="text-center text-secondary">No departments found.</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
